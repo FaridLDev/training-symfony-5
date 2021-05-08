@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TrainingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,22 @@ class Training
      * @ORM\Column(type="integer", nullable=true)
      */
     private $student;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Course::class, inversedBy="names")
+     */
+    private $courses;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="trainings")
+     */
+    private $clients;
+
+    public function __construct()
+    {
+        $this->courses = new ArrayCollection();
+        $this->clients = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +155,54 @@ class Training
     public function setStudent(?int $student): self
     {
         $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Course[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        $this->courses->removeElement($course);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getClients(): Collection
+    {
+        return $this->clients;
+    }
+
+    public function addClient(User $client): self
+    {
+        if (!$this->clients->contains($client)) {
+            $this->clients[] = $client;
+        }
+
+        return $this;
+    }
+
+    public function removeClient(User $client): self
+    {
+        $this->clients->removeElement($client);
 
         return $this;
     }
