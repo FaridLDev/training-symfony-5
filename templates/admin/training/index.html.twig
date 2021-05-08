@@ -1,0 +1,66 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des Formations{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+   <h1 class="my-5">Gestion des Formations</h1>
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th>Titre</th>
+            <th class="text-center">Localisation</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Nbr places disponibles</th>
+            <th class="text-center">Accepter</th>
+            <th class="text-center">Demande</th>
+            <th class="text-center">Totale</th>
+            <th class="text-center">Action</th>
+         </tr>
+      </thead>
+      <tbody>
+
+         {% for training in trainings %}
+
+         <tr>
+            <td>{{ training.title }}</td>
+            <td class="text-center"><span class="badge badge-info">{{ training.location }}</span></td>
+
+            {% if  "now"|date_modify("+1 day") <= training.startDate %}
+                        <td class="text-center">{{ training.startDate | date("d/m/Y")  }}</td>
+            {% else %}
+                  <td class="text-center"><span class="badge badge-danger">Inscription fermée</span></td>
+            {% endif %}
+
+            {% if  training.candidates <= training.validation  %}
+               <td class="text-center"><span class="badge badge-danger">Y'a plus de place</span></td>
+            {% else %}
+             <td class="text-center" ><span class="badge badge-dark rounded">{{ training.candidates - training.validation }}</span></td>
+            {% endif %}
+
+            <td class="text-center" >
+           <a href="#" class="btn btn-success"><span class="badge badge-success rounded"> {{ training.validation }}   </span></a>
+            </td>
+             <td class="text-center" >
+           <a href="#" class="btn btn-primary"><span class="badge badge-primary rounded"> {{ training.demande  -  training.validation }} </span></a>
+            </td>
+           <td class="text-center" >
+           <a href="#" class="btn btn-secondary"><span class="badge badge-secondary rounded"> {{ training.demande }} </span></a>
+            </td>
+            <td class="text-center" >
+               <a href="#" class="btn btn-info"><i class="fas fa-edit"></i></a>
+               <a href="#" class="btn btn-danger" onclick="return confirm(`Etes vous sur de vouloir supprimer la formation :  {{ training.title }} ? `)" ><i class="fas fa-trash"></i></a>
+            </td>
+         </tr>
+
+         {% endfor %}
+      </tbody>
+   </table>
+
+   <div class="text-right"></div>
+      <a href="#" class="btn btn-primary">Créer une formation</a>
+   </div>
+</div>
+
+{% endblock %}

@@ -19,32 +19,15 @@ class TrainingRepository extends ServiceEntityRepository
         parent::__construct($registry, Training::class);
     }
 
-    // /**
-    //  * @return Training[] Returns an array of Training objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findCandidates()
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->select(
+                ' t.id, t.title, t.location, t.startDate, t.candidates, t.description, t.picture, count(u.id) as demande, count(u.validation) as validation'
+            )
+            ->leftJoin('t.clients', 'u')
+            ->groupBy('t.title')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Training
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

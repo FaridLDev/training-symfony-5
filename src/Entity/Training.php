@@ -27,7 +27,7 @@ class Training
     /**
      * @ORM\Column(type="datetime")
      */
-    private $startdate;
+    private $startDate;
 
     /**
      * @ORM\Column(type="integer")
@@ -87,14 +87,14 @@ class Training
         return $this;
     }
 
-    public function getStartdate(): ?\DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->startdate;
+        return $this->startDate;
     }
 
-    public function setStartdate(\DateTimeInterface $startdate): self
+    public function setStartDate(\DateTimeInterface $startDate): self
     {
-        $this->startdate = $startdate;
+        $this->startDate = $startDate;
 
         return $this;
     }
