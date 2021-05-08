@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="row">
+
+<div class="col-6">
+<div class="card m-3">
+  <h3 class="card-header">{{ trainings.title }}</h3>
+  <img src="../../{{ trainings.picture }}"/>
+
+  <ul class="list-group list-group-flush">
+
+  <li class="list-group-item d-flex justify-content-between">Date de début :
+  <span>
+   {% if  "now"|date_modify("+1 day") <= trainings.startDate %}
+                        {{ trainings.startDate | date("d/m/Y")  }}
+            {% else %}
+                  <span class="text-danger">Inscription fermée</span>
+            {% endif %}
+  </span>
+  </li>
+   <li class="list-group-item d-flex justify-content-between">Localisation : <span>{{ trainings.location }}</span></li>
+    <li class="list-group-item d-flex justify-content-between">Nbr de Place :
+    <span>
+            {% if  trainings.candidates == trainings.clients.count  %}
+               <span class="text-danger">Y'a plus de place</span>
+            {% else %}
+             {{ trainings.candidates}}
+            {% endif %}
+    </span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between">Paricipants : <span>{{ trainings.clients|length }}</span></li>
+  </ul>
+
+</div>
+
+   <div class="card-body">
+    {% if ("now"|date_modify("+1 day") <= trainings.startDate) and (trainings.candidates > trainings.clients.count) %}
+      <a href="{{ path('contact',{id: trainings.id, title: trainings.title }) }}" class="card-link btn btn-primary ">Participer</a>
+        {% else %}
+          <a href="{{ path('contact',{id: trainings.id, title: trainings.title }) }}" class="card-link btn btn-primary disabled"><i class="fas fa-lock"></i></a>
+      {% endif %}
+      <a href="{{ path('home')}}" class="card-link btn btn-secondary">Liste des formations</a>
+      </div>
+    </div>
+
+<div class="col-6 my-3">
+    <div class="card border-primary mb-3 ">
+      <div class="card-header">Cours</div>
+      <div class="card-body">
+        {% for course in courses %}
+          <span class="card-text badge badge-info mx-1">{{ course.theme }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+     <div class="card border-primary mb-3 ">
+      <div class="card-header">Description</div>
+      <div class="card-body">
+        <h4 class="card-title">{{ trainings.title }}</h4>
+        <p class="card-text">{{ trainings.description }}</p>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

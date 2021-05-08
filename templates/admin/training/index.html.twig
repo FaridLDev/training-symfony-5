@@ -40,17 +40,17 @@
             {% endif %}
 
             <td class="text-center" >
-           <a href="#" class="btn btn-success"><span class="badge badge-success rounded"> {{ training.validation }}   </span></a>
+           <a href="{{ path('admin_users',{formation: training.title, condition: "allowed" }) }}" class="btn btn-success"><span class="badge badge-success rounded"> {{ training.validation }}   </span></a>
             </td>
              <td class="text-center" >
-           <a href="#" class="btn btn-primary"><span class="badge badge-primary rounded"> {{ training.demande  -  training.validation }} </span></a>
+           <a href="{{ path('admin_users',{formation: training.title, condition: "banned"}) }}" class="btn btn-primary"><span class="badge badge-primary rounded"> {{ training.demande  -  training.validation }} </span></a>
             </td>
            <td class="text-center" >
-           <a href="#" class="btn btn-secondary"><span class="badge badge-secondary rounded"> {{ training.demande }} </span></a>
+           <a href="{{ path('admin_users',{formation: training.title, condition: "all"}) }}" class="btn btn-secondary"><span class="badge badge-secondary rounded"> {{ training.demande }} </span></a>
             </td>
             <td class="text-center" >
-               <a href="#" class="btn btn-info"><i class="fas fa-edit"></i></a>
-               <a href="#" class="btn btn-danger" onclick="return confirm(`Etes vous sur de vouloir supprimer la formation :  {{ training.title }} ? `)" ><i class="fas fa-trash"></i></a>
+               <a href="{{ path('admin_training_edit',{id: training.id}) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+               <a href="{{ path('admin_training_delete',{id: training.id}) }}" class="btn btn-danger" onclick="return confirm(`Etes vous sur de vouloir supprimer la formation :  {{ training.title }} ? `)" ><i class="fas fa-trash"></i></a>
             </td>
          </tr>
 
@@ -59,7 +59,7 @@
    </table>
 
    <div class="text-right"></div>
-      <a href="#" class="btn btn-primary">Créer une formation</a>
+      <a href="{{ path('admin_training_new')}}" class="btn btn-primary">Créer une formation</a>
    </div>
 </div>
 

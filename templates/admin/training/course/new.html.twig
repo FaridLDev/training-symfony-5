@@ -1,0 +1,23 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}créer un nouveau cours{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<h1 class="my-5">Créer un nouveau cours</h1>
+{{ form_start(form) }}
+    {{ form_rest(form) }}
+
+ <div class="form-group">
+                        <button class="btn btn-primary">
+                            {{ button_label|default('Créer') }}
+                        </button>
+                        <a href="{{ path('course_index') }}" class="btn btn-link">
+                            <i class="fas fa-arrow-circle-left"></i>
+                            Voir la liste des cours
+                        </a>
+                    </div>
+{{ form_end(form) }}
+</div>
+
+{% endblock %}

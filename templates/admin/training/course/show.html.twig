@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Cours{% endblock %}
+
+{% block body %}
+    <h1>Cours</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ course.id }}</td>
+            </tr>
+            <tr>
+                <th>Theme</th>
+                <td>{{ course.theme }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('course_index') }}">back to list</a>
+
+    <a href="{{ path('course_edit', {'id': course.id}) }}">edit</a>
+
+    {{ include('admin/training/course/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Envoi Email{% endblock %}
+
+{% block body %}
+
+<div id="contactForm" class="m-4">
+
+{% if not form.vars.valid %}
+    <div class="alert alert danger">Error</div>
+{% endif %}
+
+{{ form_start(form)}}
+<div class="form-row">
+   <div class="form-group col ">
+      <div class="col">{{ form_row(form.firstname) }}</div>
+      <div class="col">{{ form_row(form.lastname) }}</div>
+      <div class="col">{{ form_row(form.email) }}</div>
+      <div class="col">{{ form_row(form.birthday) }}</div>
+   </div>
+   <div class="form-group col">
+      <div class="col">{{ form_row(form.message) }}</div>
+   </div>
+</div>
+<div class="form-row mx-2">
+   <div class="form-group ">
+   <button class="btn btn-primary mx-2">Envoyer</button>
+   <a href="{{ path('home')}}" class="card-link btn btn-secondary">Annuler</a>
+   </div>
+   </div>
+{{ form_end(form)}}
+</div>
+
+{% endblock %}

@@ -161,6 +161,18 @@ class User implements UserInterface
         return $this->trainings;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Training|null $training
+     * @return Contact
+     */
+    public function setTraining(Training $training): User
+    {
+        $this->training = $training;
+        return $this;
+    }
+
     public function addTraining(Training $training): self
     {
         if (!$this->trainings->contains($training)) {

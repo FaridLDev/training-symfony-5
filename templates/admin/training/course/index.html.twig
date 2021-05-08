@@ -1,0 +1,38 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des Cours{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<h1 class="my-5">Liste des Cours</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Cours</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            <tr>
+                <td class="text-center">{{ course.id }}</td>
+                <td class="text-center"><span class="badge badge-info">{{ course.theme }}</span></td>
+                <td class="text-center">
+                       {{ include('admin/training/course/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun enregistrement n'a été trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('course_new') }}" class="btn btn-primary">Créer nouveau</a>
+    <a href="{{ path('admin_training_index') }}" class="btn btn-link">
+                            <i class="fas fa-arrow-circle-left"></i>
+                            Retour au gestion des Formations
+                        </a>
+</div>
+{% endblock %}

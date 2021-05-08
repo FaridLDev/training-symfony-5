@@ -30,4 +30,19 @@ class TrainingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneByTitle($val)
+    {
+        return $this->createQueryBuilder('t')
+            ->select(
+                'u.id, u.lastname, u.firstname, u.birthday, u.email, u.message, u.validation, d.title'
+            )
+            ->Join('t.clients', 'u')
+            ->leftJoin('u.trainings', 'd')
+            ->andWhere('t.title = :val')
+            ->setParameter('val', $val)
+            ->groupBy('u')
+            ->getQuery()
+            ->getResult();
+    }
 }
