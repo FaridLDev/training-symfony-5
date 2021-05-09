@@ -115,16 +115,16 @@ class TrainingController extends AbstractController
         $manager->flush();
         $this->addFlash(
             'success',
-            "La livre <strong>{$training->getTitle()}</strong> a bien été suprimer"
+            "La Formation <strong>{$training->getTitle()}</strong> a bien été suprimer"
         );
 
         return $this->redirectToRoute('admin_training_index');
     }
 
     /**
-     * @Route("/{formation}/test/{id}", name="admin_users_participant_validation")
+     * @Route("/{formation}/action/{id}", name="admin_users_participant_validation")
      */
-    public function test(
+    public function action(
         TrainingRepository $trainingRepository,
         UserRepository $userAllrepo,
         $formation,
@@ -136,8 +136,10 @@ class TrainingController extends AbstractController
         $validation = $userAll[0]->getValidation();
         if ($validation == null) {
             $userAll[0]->setValidation('TRUE');
+            $action = 'ajoutée';
         } else {
             $userAll[0]->setValidation(null);
+            $action = 'retirée';
         }
 
         $manager->persist($userAll[0]);
@@ -147,7 +149,7 @@ class TrainingController extends AbstractController
 
         $this->addFlash(
             'success',
-            'La Formation <strong>test</strong> a bien été suprimer'
+            "Utilisateur avec id = : <strong>{$id}</strong> a bien été $action à la liste d’étudiants"
         );
 
         return $this->redirectToRoute('admin_training_index');

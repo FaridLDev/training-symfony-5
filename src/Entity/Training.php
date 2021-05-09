@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\TrainingRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TrainingRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrainingRepository::class)
@@ -26,11 +27,15 @@ class Training
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThan("today", message="La date indiquer doit être ultérieur à la date d'aujourd'hui !")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type(type="integer")
+     * @Assert\Expression("this.getCandidates() >= this.getStudent()",
+     * message="Attention! Le nombre de participants est supérieur au nombre de places!")
      */
     private $candidates;
 
@@ -51,6 +56,8 @@ class Training
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     *  @Assert\Expression("this.getCandidates() >= this.getStudent()",
+     *  message="Attention! Le nombre de participants est supérieur au nombre de places!")
      */
     private $student;
 
@@ -171,6 +178,7 @@ class Training
     {
         if (!$this->courses->contains($course)) {
             $this->courses[] = $course;
+            $course->addName($this);
         }
 
         return $this;
@@ -179,6 +187,7 @@ class Training
     public function removeCourse(Course $course): self
     {
         $this->courses->removeElement($course);
+        $course->removeName($this);
 
         return $this;
     }
