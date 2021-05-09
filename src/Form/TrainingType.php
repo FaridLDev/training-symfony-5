@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -56,18 +57,15 @@ class TrainingType extends AbstractType
                 ],
             ])
 
-            ->add('picture', TextType::class, [
-                'required' => true,
-                'label' => 'Image',
-                'attr' => [
-                    'placeholder' => 'L\'image de couverture',
-                ],
-            ])
             ->add('courses', EntityType::class, [
                 'class' => Course::class,
                 'label' => 'Cours',
                 'choice_label' => 'theme',
                 'multiple' => true,
+            ])
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'label' => 'Image',
             ]);
     }
 
