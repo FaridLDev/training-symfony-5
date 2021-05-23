@@ -19,7 +19,6 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      */
     public function index(
-        TrainingRepository $trainingRepository,
         TrainingRepository $repository
     ): Response {
         $training = new Training();
