@@ -8,9 +8,9 @@
 
 <div class="col-6">
 <div class="card m-3">
-  <h3 class="card-header">{{ trainings.title }}</h3>
+  <h3 class="card-header" style="text-align: center;">{{ trainings.title }}</h3>
     {% if trainings.ImageName %}
-       <img src="{{ vich_uploader_asset(trainings, 'imageFile') }}" alt="card-img-top" style="width: 257px; height: 180px;"/>
+       <img src="{{ vich_uploader_asset(trainings, 'imageFile') }}" alt="card-img-top" style="width: 100%; height: auto;"/>
     {% endif %}
 
   <ul class="list-group list-group-flush">
