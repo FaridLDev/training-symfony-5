@@ -28,8 +28,8 @@ class ContactNotification
         $message = (new \Swift_Message(
             'Formation :' . $contact->training->getTitle()
         ))
-            ->setFrom('demo@mailfrom.com')
-            ->setTo('demo@mailto.com')
+            ->setFrom('youmail@')
+            ->setTo('youmail@')
             ->setReplyTo($contact->getEmail())
             ->setBody(
                 $this->renderer->render('emails/contact.html.twig', [
