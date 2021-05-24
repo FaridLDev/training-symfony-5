@@ -54,11 +54,6 @@ class Training
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $picture;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      *  @Assert\Expression("this.getCandidates() >= this.getStudent()",
      *  message="Attention! Le nombre de participants est supérieur au nombre de places!")
@@ -82,11 +77,13 @@ class Training
      *
      * @var File|null
      * @Assert\Image( mimeTypes="image/jpeg")
+     * @Assert\NotBlank(message="Vous devez ajouter une image en format jpeg")
      */
     private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      *
      * @var string|null
      */
@@ -164,18 +161,6 @@ class Training
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }

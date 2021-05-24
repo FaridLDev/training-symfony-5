@@ -23,7 +23,7 @@ class TrainingRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
             ->select(
-                ' t.id, t.title, t.location, t.startDate, t.candidates, t.description, t.picture, count(u.id) as demande, count(u.validation) as validation'
+                ' t.id, t.title, t.location, t.startDate, t.candidates, t.description, count(u.id) as demande, count(u.validation) as validation'
             )
             ->leftJoin('t.clients', 'u')
             ->groupBy('t.title')
